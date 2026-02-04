@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- Meta tags para compartilhamento -->
+  <meta name="description" content="Quiz sobre a Portaria Normativa PROCON-SP 229/2022. 10 questões diárias!">
+  <meta property="og:title" content="📋 Quiz Portaria PROCON 229/2022">
+  <meta property="og:description" content="Teste seus conhecimentos sobre a Portaria 229/2022! 10 questões por dia.">
+  <meta property="og:type" content="website">
+  
+  <title>📋 Quiz Portaria 229/2022</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
+      padding: 15px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 25px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      margin: 20px auto;
+    }
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 25px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .question-box {
+      background: #f8fafc;
+      padding: 25px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      min-height: 150px;
+      border: 2px solid #e2e8f0;
+    }
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .question-number {
+      font-weight: bold;
+      color: #667eea;
+      font-size: 18px;
+    }
+    .difficulty-badge {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .difficulty-badge.facil { background: #dcfce7; color: #15803d; }
+    .difficulty-badge.medio { background: #fef3c7; color: #b45309; }
+    .difficulty-badge.desafiadora { background: #fee2e2; color: #b91c1c; }
+    #question-text {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #1e293b;
+      font-weight: 500;
+    }
+    .options {
+      display: grid;
+      gap: 12px;
+      margin: 25px 0;
+    }
+    .option {
+      padding: 18px 15px;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      gap: 12px;
+    }
+    .option-letter {
+      font-weight: 700;
+      color: #667eea;
+      min-width: 25px;
+    }
+    .option:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      border-color: #667eea;
+    }
+    .option:active {
+      transform: scale(0.98);
+    }
+    .option.correct {
+      background-color: #22c55e !important;
+      color: white !important;
+      border-color: #16a34a !important;
+      transform: scale(1.02) !important;
+    }
+    .option.correct .option-letter {
+      color: white !important;
+    }
+    .option.wrong {
+      background-color: #ef4444 !important;
+      color: white !important;
+      border-color: #b91c1c !important;
+    }
+    .option.wrong .option-letter {
+      color: white !important;
+    }
+    .score-box {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 20px;
+      margin: 25px 0;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+    .share-box {
+      background: #f0fdf4;
+      border: 2px solid #22c55e;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .share-title {
+      font-weight: 700;
+      color: #15803d;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+    .share-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+    }
+    .share-btn.whatsapp { background: #25D366; }
+    .share-btn.telegram { background: #0088cc; }
+    .share-btn.copiar { background: #667eea; }
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .history {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 2px dashed #e2e8f0;
+    }
+    .history-title {
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 15px;
+      font-size: 20px;
+      text-align: center;
+    }
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #f8fafc;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 17px;
+      border-left: 4px solid #667eea;
+    }
+    .btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 20px;
+      font-size: 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .feedback {
+      text-align: center;
+      margin: 25px 0;
+      min-height: 40px;
+      font-size: 24px;
+      font-weight: 700;
+      padding: 12px;
+      border-radius: 16px;
+    }
+    .feedback.correct { color: #15803d; background-color: #dcfce7; }
+    .feedback.wrong { color: #b91c1c; background-color: #fee2e2; }
+    .improvement {
+      text-align: center;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .improvement.up { background-color: #dcfce7; color: #15803d; border: 3px solid #22c55e; }
+    .improvement.down { background-color: #fee2e2; color: #b91c1c; border: 3px solid #ef4444; }
+    .improvement.same { background-color: #fef3c7; color: #b45309; border: 3px solid #f59e0b; }
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #64748b;
+      font-size: 14px;
+      padding-top: 15px;
+      border-top: 1px solid #e2e8f0;
+      line-height: 1.6;
+    }
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 20px 15px; }
+      h1 { font-size: 24px; }
+      .option { padding: 15px 12px; font-size: 15px; }
+      .btn { padding: 18px; font-size: 19px; }
+      #question-text { font-size: 16px; }
+      .share-buttons { flex-direction: column; }
+      .share-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Quiz Portaria 229/2022</h1>
+    <div class="subtitle">Portaria Normativa PROCON-SP<br>10 questões por dia • Progresso salvo automaticamente</div>
+    
+    <div id="start-screen">
+      <button id="start-btn" class="btn">▶️ Começar Agora</button>
+      
+      <div class="history">
+        <div class="history-title">📈 Seu Histórico (últimos 5 dias)</div>
+        <div class="history-list" id="history-list">
+          <div style="text-align:center;color:#64748b;padding:20px 10px;font-size:16px;">Ainda sem resultados</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="quiz-screen" style="display:none;">
+      <div class="question-box">
+        <div class="question-header">
+          <div class="question-number" id="question-number">Questão 1/10</div>
+          <div class="difficulty-badge" id="difficulty-badge">Fácil</div>
+        </div>
+        <div id="question-text">Carregando questão...</div>
+      </div>
+      
+      <div class="feedback" id="feedback"></div>
+      
+      <div class="options" id="options"></div>
+    </div>
+    
+    <div id="result-screen" style="display:none;">
+      <div class="score-box" id="final-score">🏆 0/10 acertos</div>
+      
+      <div id="improvement-box" class="improvement" style="display:none;"></div>
+      
+      <div class="share-box">
+        <div class="share-title">📤 Compartilhe com seus colegas!</div>
+        <div class="share-buttons">
+          <a id="share-whatsapp" class="share-btn whatsapp" target="_blank">
+            <span>📱</span> WhatsApp
+          </a>
+          <a id="share-telegram" class="share-btn telegram" target="_blank">
+            <span>✈️</span> Telegram
+          </a>
+          <button id="share-copiar" class="share-btn copiar">
+            <span>📋</span> Copiar Link
+          </button>
+        </div>
+      </div>
+      
+      <button id="restart-btn" class="btn">🔄 Novo Quiz</button>
+    </div>
+    
+    <div class="footer">
+      <strong>Portaria Normativa PROCON-SP nº 229/2022</strong><br>
+      50 questões de múltipla escolha
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    // 50 QUESTÕES - Portaria 229/2022
+    const questoes = [
+      {q:"A Portaria Normativa nº 229/2022 tem por finalidade regular, no âmbito do PROCON-SP:",opt:["A) A atuação judicial do órgão em defesa coletiva","B) A conciliação entre consumidores e fornecedores","C) A atividade fiscalizatória e o processo administrativo sancionador","D) Exclusivamente a aplicação de penalidades pecuniárias","E) Apenas os procedimentos eletrônicos internos"],correta:2,dificuldade:"Fácil"},
+      {q:"Segundo a Portaria, a atuação do PROCON-SP deve obedecer, entre outros, ao princípio da:",opt:["A) Eficiência econômica","B) Autotutela privada","C) Motivação dos atos administrativos","D) Livre concorrência","E) Razoabilidade contratual"],correta:2,dificuldade:"Fácil"},
+      {q:"A interpretação da norma administrativa, segundo o art. 3º da Portaria, deve priorizar:",opt:["A) A segurança jurídica do fornecedor","B) A literalidade do texto normativo","C) A realização do fim público","D) O interesse econômico do consumidor","E) A aplicação subsidiária do CPC"],correta:2,dificuldade:"Fácil"},
+      {q:"O PROCON-SP somente poderá iniciar atuação material relacionada à esfera jurídica do fornecedor mediante:",opt:["A) Denúncia formal do consumidor","B) Instauração de processo judicial","C) Prévia expedição de ato administrativo","D) Comunicação eletrônica automática","E) Publicação em sítio eletrônico"],correta:2,dificuldade:"Fácil"},
+      {q:"Os atos fiscalizatórios e o processo administrativo sancionador são, como regra:",opt:["A) Públicos desde a instauração","B) Sigilosos apenas na fase investigativa","C) Sigilosos até decisão final irrecorrível","D) Públicos apenas para o consumidor","E) Sigilosos apenas para terceiros"],correta:2,dificuldade:"Fácil"},
+      {q:"O ingresso de terceiro no processo administrativo sancionador depende de:",opt:["A) Autorização judicial","B) Pedido simples do interessado","C) Decisão motivada da Diretoria Executiva","D) Concordância do fornecedor","E) Parecer da Diretoria de Assuntos Jurídicos"],correta:2,dificuldade:"Médio"},
+      {q:"Da decisão que defere ou indefere o ingresso de terceiro no processo sancionador:",opt:["A) Cabe recurso administrativo","B) Cabe recurso hierárquico","C) Cabe pedido de reconsideração","D) Cabe recurso sem efeito suspensivo","E) Não cabe recurso"],correta:4,dificuldade:"Médio"},
+      {q:"Em todos os atos e termos dos atos fiscalizatórios é obrigatório o uso:",opt:["A) De linguagem técnica-jurídica","B) De formulários padronizados","C) Da língua portuguesa","D) De sistema eletrônico","E) De linguagem acessível ao consumidor"],correta:2,dificuldade:"Fácil"},
+      {q:"Documento redigido em língua estrangeira somente poderá ser juntado aos autos quando:",opt:["A) Autenticado em cartório","B) Traduzido livremente","C) Acompanhado de tradução juramentada","D) Autorizado pela Diretoria Executiva","E) Anexado ao sistema eletrônico"],correta:2,dificuldade:"Fácil"},
+      {q:"Os atos administrativos escritos devem conter, obrigatoriamente:",opt:["A) Fundamentação jurídica completa","B) Número do processo judicial","C) Data, horário, local e assinatura da autoridade","D) Indicação expressa da penalidade","E) Nome do consumidor reclamante"],correta:2,dificuldade:"Médio"},
+      {q:"Nos atos administrativos produzidos eletronicamente, a assinatura ocorrerá:",opt:["A) Por certificado digital ICP-Brasil","B) Por assinatura física digitalizada","C) Mediante autenticação por senha","D) Por validação judicial","E) Por reconhecimento cartorial"],correta:2,dificuldade:"Médio"},
+      {q:"Os atos fiscalizatórios e processuais eletrônicos serão praticados exclusivamente por meio do:",opt:["A) Diário Oficial Eletrônico","B) Portal do Fornecedor","C) Sistema PROCON-SP DIGITAL","D) Sistema e-CAC","E) Sistema SEI"],correta:2,dificuldade:"Fácil"},
+      {q:"Lavrado o Auto de Infração de forma eletrônica, os atos processuais subsequentes:",opt:["A) Poderão ser físicos ou eletrônicos","B) Serão exclusivamente eletrônicos","C) Serão físicos","D) Dependem de opção do fornecedor","E) Serão híbridos"],correta:1,dificuldade:"Médio"},
+      {q:"Documento protocolado fora do Sistema PROCON-SP DIGITAL, nas hipóteses previstas na Portaria:",opt:["A) Será analisado excepcionalmente","B) Será convertido em eletrônico","C) Não será conhecido","D) Será juntado como anexo","E) Será devolvido ao fornecedor"],correta:2,dificuldade:"Médio"},
+      {q:"Em caso de inconsistência do sistema certificada pela ATIC, o prazo legal:",opt:["A) Será anulado","B) Será reiniciado integralmente","C) Será restituído pelo tempo faltante","D) Será convertido em dias úteis","E) Será suspenso por 30 dias"],correta:2,dificuldade:"Desafiadora"},
+      {q:"A prática eletrônica dos atos pode ocorrer até:",opt:["A) 18h do último dia","B) 20h do último dia","C) 23h59min59s do último dia","D) 0h do dia seguinte","E) 24h do último dia útil"],correta:2,dificuldade:"Médio"},
+      {q:"A publicidade dos atos administrativos do PROCON-SP ocorre, como regra, por meio de:",opt:["A) Sistema eletrônico","B) Comunicação ao fornecedor","C) Diário Oficial do Estado","D) Edital eletrônico","E) Portal do Consumidor"],correta:2,dificuldade:"Fácil"},
+      {q:"Despachos de mero expediente:",opt:["A) Devem ser publicados","B) São publicados apenas se houver recurso","C) Não necessitam de publicação","D) Exigem ciência do fornecedor","E) São publicados no sistema digital"],correta:2,dificuldade:"Fácil"},
+      {q:"É ônus do fornecedor informar ao PROCON-SP:",opt:["A) Apenas endereço físico","B) Apenas endereço eletrônico","C) Endereço físico e eletrônico atualizados","D) Endereço constante do CNPJ apenas","E) Endereço judicial"],correta:2,dificuldade:"Médio"},
+      {q:"A citação do fornecedor no processo administrativo sancionador será obrigatoriamente:",opt:["A) Eletrônica","B) Por edital","C) Pessoal ou por carta com AR","D) Por sistema digital","E) Por publicação oficial"],correta:2,dificuldade:"Fácil"},
+      {q:"Não localizado o autuado para citação pessoal ou por correspondência, a citação será feita:",opt:["A) Por sistema eletrônico","B) Por publicação no site","C) Por edital","D) Por despacho interno","E) Por notificação simples"],correta:2,dificuldade:"Médio"},
+      {q:"Os prazos na Portaria são contados:",opt:["A) Em dias úteis","B) Em dias corridos","C) Em dias alternados","D) Em dias úteis administrativos","E) Conforme o CPC"],correta:1,dificuldade:"Fácil"},
+      {q:"Exclui-se da contagem do prazo:",opt:["A) O dia do vencimento","B) O dia da ciência","C) O primeiro dia útil","D) O último dia útil","E) O dia da publicação"],correta:1,dificuldade:"Médio"},
+      {q:"O representante legal do fornecedor poderá atuar:",opt:["A) Apenas pessoalmente","B) Apenas por advogado","C) Diretamente, por procurador ou preposto","D) Somente por preposto","E) Apenas por procurador judicial"],correta:2,dificuldade:"Fácil"},
+      {q:"O PROCON-SP DIGITAL é acessado por:",opt:["A) Qualquer interessado","B) Apenas servidores públicos","C) Representantes legais, procuradores ou prepostos","D) Consumidores reclamantes","E) Advogados externos"],correta:2,dificuldade:"Médio"},
+      {q:"O código de acesso ao sistema permite:",opt:["A) Acesso irrestrito ao processo","B) Apenas visualização do documento vinculado","C) Prática de atos processuais","D) Protocolo de defesa","E) Acesso a todos os autos"],correta:1,dificuldade:"Médio"},
+      {q:"A atividade fiscalizatória compreende:",opt:["A) Apenas aplicação de multa","B) Atos judiciais e administrativos","C) Atos administrativos voltados à apuração de infração","D) Atos conciliatórios","E) Atos de defesa do consumidor"],correta:2,dificuldade:"Fácil"},
+      {q:"Constituem instrumentos fiscalizatórios, EXCETO:",opt:["A) Auto de Constatação","B) Registro de Fiscalização","C) Auto de Apreensão","D) Termo de Ajustamento de Conduta","E) Auto de Infração"],correta:3,dificuldade:"Médio"},
+      {q:"O Auto de Constatação tem como finalidade:",opt:["A) Aplicar penalidade","B) Solicitar documentos","C) Constatar situação de possível infração","D) Julgar o processo","E) Encerrar a fiscalização"],correta:2,dificuldade:"Fácil"},
+      {q:"A Averiguação Preliminar é caracterizada como procedimento:",opt:["A) Público e contraditório","B) Sigiloso e inquisitorial","C) Judicial e recursal","D) Conciliatório","E) Definitivo"],correta:1,dificuldade:"Médio"},
+      {q:"O processo administrativo sancionador inicia-se com:",opt:["A) A denúncia do consumidor","B) A Averiguação Preliminar","C) A lavratura do Auto de Infração","D) A citação do fornecedor","E) A decisão da Diretoria"],correta:2,dificuldade:"Fácil"},
+      {q:"O prazo para o fornecedor pagar a penalidade-base ou apresentar defesa é de:",opt:["A) 5 dias","B) 7 dias","C) 10 dias","D) 15 dias","E) 30 dias"],correta:3,dificuldade:"Fácil"},
+      {q:"O pagamento à vista da penalidade-base gera desconto de:",opt:["A) 10%","B) 15%","C) 20%","D) 25%","E) 30%"],correta:4,dificuldade:"Médio"},
+      {q:"O pagamento da multa implica:",opt:["A) Suspensão do processo","B) Confissão do débito e da infração","C) Possibilidade de recurso","D) Redução automática da penalidade","E) Conversão em advertência"],correta:1,dificuldade:"Médio"},
+      {q:"A defesa administrativa deve conter:",opt:["A) Apenas provas documentais","B) Apenas fundamentos jurídicos","C) Fatos e fundamentos de direito","D) Pedido genérico","E) Declaração simples"],correta:2,dificuldade:"Fácil"},
+      {q:"Compete à Diretoria de Assuntos Jurídicos:",opt:["A) Despachos de mero expediente","B) Decisões de mérito em primeira instância","C) Julgamento de recursos","D) Lavratura de autos","E) Atos de fiscalização"],correta:1,dificuldade:"Médio"},
+      {q:"O prazo para interposição de recurso é de:",opt:["A) 5 dias","B) 7 dias","C) 10 dias","D) 15 dias","E) 30 dias"],correta:3,dificuldade:"Fácil"},
+      {q:"O recurso, como regra, é recebido com efeitos:",opt:["A) Apenas devolutivo","B) Apenas suspensivo","C) Devolutivo e suspensivo","D) Translativo","E) Interruptivo"],correta:2,dificuldade:"Médio"},
+      {q:"O recurso não será conhecido quando:",opt:["A) Interposto fora do prazo","B) Mal fundamentado","C) Contrário à jurisprudência","D) Sem pedido expresso","E) Com provas insuficientes"],correta:0,dificuldade:"Médio"},
+      {q:"A decisão em grau de recurso não poderá:",opt:["A) Manter a penalidade","B) Reformar a decisão","C) Agravar a restrição","D) Anular o processo","E) Reconhecer nulidade"],correta:2,dificuldade:"Médio"},
+      {q:"Após decisão final, o autuado será intimado para pagar a multa no prazo de:",opt:["A) 5 dias","B) 7 dias","C) 10 dias","D) 15 dias","E) 30 dias"],correta:3,dificuldade:"Fácil"},
+      {q:"O não pagamento da multa enseja:",opt:["A) Arquivamento do processo","B) Nova notificação","C) Protesto e inscrição em dívida ativa","D) Conversão em advertência","E) Suspensão automática da atividade"],correta:2,dificuldade:"Médio"},
+      {q:"A multa administrativa tem seus limites atualizados monetariamente com base no:",opt:["A) IPCA","B) INPC","C) IPCA-E","D) UFESP","E) SELIC"],correta:2,dificuldade:"Desafiadora"},
+      {q:"A dosimetria da multa considera, entre outros critérios:",opt:["A) Grau de culpa","B) Capacidade técnica do fornecedor","C) Critérios do art. 57 do CDC","D) Reclamações anteriores","E) Porte econômico fixo"],correta:2,dificuldade:"Desafiadora"},
+      {q:"A penalidade de contrapropaganda é aplicável quando houver:",opt:["A) Vício do produto","B) Descumprimento contratual","C) Publicidade enganosa ou abusiva","D) Reincidência genérica","E) Falta de informação"],correta:2,dificuldade:"Médio"},
+      {q:"A suspensão temporária da atividade poderá ser aplicada quando houver:",opt:["A) Infração leve","B) Primeira autuação","C) Reincidência em infrações de maior gravidade","D) Descumprimento formal","E) Falta de defesa"],correta:2,dificuldade:"Médio"},
+      {q:"As medidas cautelares podem ser aplicadas:",opt:["A) Apenas após decisão final","B) Apenas judicialmente","C) Em caráter antecedente ou incidental","D) Somente após defesa","E) Apenas com recurso"],correta:2,dificuldade:"Médio"},
+      {q:"O descumprimento de medida cautelar pode caracterizar:",opt:["A) Crime de fraude","B) Crime de desobediência","C) Ilícito civil apenas","D) Falta administrativa leve","E) Irregularidade sanável"],correta:1,dificuldade:"Desafiadora"},
+      {q:"As normas processuais da Portaria aplicam-se:",opt:["A) Apenas a processos novos","B) Apenas a processos arquivados","C) Imediatamente aos processos em andamento","D) Somente após trânsito em julgado","E) Apenas se favoráveis ao fornecedor"],correta:2,dificuldade:"Médio"},
+      {q:"A Portaria Normativa nº 229/2022:",opt:["A) Revoga parcialmente normas anteriores","B) Revoga integralmente a Portaria nº 57/2019","C) Complementa a Portaria nº 51/2018","D) Tem vigência condicionada","E) Aplica-se apenas a novos processos"],correta:1,dificuldade:"Médio"}
+    ];
+
+    // Embaralhamento Fisher-Yates
+    function embaralhar(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Estado do jogo
+    let estado = {
+      acertos: 0,
+      respondidas: 0,
+      questoesEmbaralhadas: [],
+      data: new Date().toISOString().split('T')[0]
+    };
+
+    function carregarEstado() {
+      const salvo = localStorage.getItem('quiz_portaria229_estado_v1');
+      if (salvo) {
+        const s = JSON.parse(salvo);
+        const hoje = new Date().toISOString().split('T')[0];
+        if (s.data === hoje && s.questoesEmbaralhadas && s.questoesEmbaralhadas.length === 10) {
+          estado = s;
+        } else {
+          estado = { 
+            acertos: 0, 
+            respondidas: 0, 
+            questoesEmbaralhadas: embaralhar(questoes).slice(0, 10),
+            data: hoje 
+          };
+        }
+      } else {
+        estado.questoesEmbaralhadas = embaralhar(questoes).slice(0, 10);
+      }
+    }
+
+    function salvarEstado() {
+      localStorage.setItem('quiz_portaria229_estado_v1', JSON.stringify(estado));
+    }
+
+    function carregarHistorico() {
+      return JSON.parse(localStorage.getItem('quiz_portaria229_historico_v1') || '{}');
+    }
+
+    function salvarHistorico(h) {
+      localStorage.setItem('quiz_portaria229_historico_v1', JSON.stringify(h));
+    }
+
+    function mostrarToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    function mostrarTela(tela) {
+      document.getElementById('start-screen').style.display = tela === 'start' ? 'block' : 'none';
+      document.getElementById('quiz-screen').style.display = tela === 'quiz' ? 'block' : 'none';
+      document.getElementById('result-screen').style.display = tela === 'result' ? 'block' : 'none';
+    }
+
+    function proximaQuestao() {
+      if (estado.respondidas >= 10) {
+        finalizar();
+        return;
+      }
+
+      const q = estado.questoesEmbaralhadas[estado.respondidas];
+      
+      document.getElementById('question-number').textContent = `Questão ${estado.respondidas + 1}/10`;
+      document.getElementById('question-text').textContent = q.q;
+      document.getElementById('feedback').textContent = '';
+      
+      const badge = document.getElementById('difficulty-badge');
+      badge.textContent = q.dificuldade;
+      badge.className = 'difficulty-badge ' + q.dificuldade.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      
+      const ops = document.getElementById('options');
+      ops.innerHTML = '';
+      
+      q.opt.forEach((opcao, idx) => {
+        const btn = document.createElement('div');
+        btn.className = 'option';
+        btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + idx)})</span><span>${opcao.substring(3)}</span>`;
+        btn.onclick = () => responder(idx, q.correta);
+        ops.appendChild(btn);
+      });
+    }
+
+    function responder(escolha, correta) {
+      const acertou = escolha === correta;
+      
+      document.querySelectorAll('.option').forEach((btn, idx) => {
+        if (idx === correta) btn.classList.add('correct');
+        if (idx === escolha && !acertou) btn.classList.add('wrong');
+        btn.onclick = null;
+      });
+
+      const fb = document.getElementById('feedback');
+      fb.textContent = acertou ? '✅ CORRETO!' : `❌ ERRADO! Resposta: ${String.fromCharCode(65 + correta)}`;
+      fb.className = `feedback ${acertou ? 'correct' : 'wrong'}`;
+
+      if (acertou) estado.acertos++;
+      estado.respondidas++;
+      salvarEstado();
+      
+      setTimeout(() => {
+        if (estado.respondidas < 10) {
+          proximaQuestao();
+        } else {
+          finalizar();
+        }
+      }, 1500);
+    }
+
+    function finalizar() {
+      const hist = carregarHistorico();
+      hist[estado.data] = {a: estado.acertos, t: 10};
+      salvarHistorico(hist);
+
+      document.getElementById('final-score').textContent = `🏆 ${estado.acertos}/10 acertos`;
+      
+      const url = window.location.href;
+      const texto = `📋 Quiz Portaria 229/2022 - Fiz ${estado.acertos}/10 pontos!\n\nTeste seus conhecimentos sobre a Portaria Normativa PROCON-SP 229/2022`;
+      
+      document.getElementById('share-whatsapp').href = `https://wa.me/?text=${encodeURIComponent(texto + '\n\n' + url)}`;
+      document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(texto)}`;
+      
+      const dias = Object.keys(hist).sort((a,b) => new Date(b) - new Date(a));
+      const hojeIdx = dias.indexOf(estado.data);
+      const imp = document.getElementById('improvement-box');
+      
+      if (hojeIdx >= 0 && dias[hojeIdx + 1]) {
+        const ant = hist[dias[hojeIdx + 1]].a;
+        const diff = estado.acertos - ant;
+        if (diff > 0) {
+          imp.textContent = `⬆️ Melhor que ontem (+${diff})!`;
+          imp.className = 'improvement up';
+        } else if (diff < 0) {
+          imp.textContent = `⬇️ Pior que ontem (${diff})`;
+          imp.className = 'improvement down';
+        } else {
+          imp.textContent = '➡️ Empatou com ontem!';
+          imp.className = 'improvement same';
+        }
+        imp.style.display = 'block';
+      } else {
+        imp.style.display = 'none';
+      }
+
+      mostrarTela('result');
+      atualizarHistorico();
+    }
+
+    function atualizarHistorico() {
+      const hist = carregarHistorico();
+      const dias = Object.keys(hist).sort((a,b) => new Date(b) - new Date(a)).slice(0,5);
+      const list = document.getElementById('history-list');
+      
+      if (dias.length === 0) {
+        list.innerHTML = '<div style="text-align:center;color:#64748b;padding:20px 10px;font-size:16px;">Ainda sem resultados</div>';
+        return;
+      }
+
+      let html = '';
+      dias.forEach(d => {
+        const a = hist[d].a, t = hist[d].t, p = Math.round(a/t*100);
+        const cor = a >= 8 ? '#22c55e' : a >= 5 ? '#f59e0b' : '#ef4444';
+        html += `<div class="history-item">
+          <span>${d.slice(8)}/${d.slice(5,7)}</span>
+          <span style="color:${cor}">${a}/${t} (${p}%)</span>
+        </div>`;
+      });
+      list.innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      carregarEstado();
+      atualizarHistorico();
+
+      if (estado.respondidas >= 10) {
+        finalizar();
+        return;
+      }
+
+      document.getElementById('start-btn').onclick = () => {
+        mostrarTela('quiz');
+        proximaQuestao();
+      };
+
+      document.getElementById('restart-btn').onclick = () => {
+        const hoje = new Date().toISOString().split('T')[0];
+        estado = { 
+          acertos: 0, 
+          respondidas: 0, 
+          questoesEmbaralhadas: embaralhar(questoes).slice(0, 10),
+          data: hoje 
+        };
+        salvarEstado();
+        mostrarTela('start');
+      };
+
+      document.getElementById('share-copiar').onclick = () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          mostrarToast('✅ Link copiado!');
+        }).catch(() => {
+          mostrarToast('❌ Erro ao copiar');
+        });
+      };
+    });
+  </script>
+</body>
+</html>
